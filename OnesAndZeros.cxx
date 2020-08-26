@@ -12,6 +12,8 @@ constexpr int PLAYER_WIN = 1;
 constexpr int COMPUTER_WIN = 2;
 constexpr int DRAW = 0;
 
+int errCount = 0;
+
 
 //Поиск пустых клеток
 std::vector<int> findEmptyCells(
@@ -201,18 +203,38 @@ int makeMySubmove(
 	{
 	    return 0;
 	}
-	else if (whoWin(board) == COMPUTER_WIN)
-	{
-	    return 10;
-	}
-	else if (whoWin(board) == PLAYER_WIN)
-	{
-	    return -10;
-	}
 	else 
 	{
-		//Тут будет рекурсия, но пока дебажим что есть
-		return 0;
+		board[n] = 0;
+		if (whoWin(board) == COMPUTER_WIN)
+    	{
+    	    return 10;
+    	}
+    	else if (whoWin(board) == PLAYER_WIN)
+    	{
+    	    return -10;
+    	}
+    	else 
+    	{
+	    	int maxCount = -100000;
+	    	int maxIndex = -1;
+		
+    	    for (int i = 0; i < emptyCells.size(); ++i)
+    	    {
+    	    	
+    	    }
+	        
+	        for (int i = 0; i < emptyCells.size(); ++i)
+    	    {
+	            if (emptyCellsScore[i] > maxCount)
+	            {
+	                maxCount = emptyCellsScore[i];
+	                maxIndex = emptyCells[i];
+    	        }
+    	    }
+	    
+	        return maxIndex;
+    	}
 	}
 }
 
@@ -244,6 +266,8 @@ void makeMyMove(
 	    }
 	    
 	    board[maxIndex] = 0;
+	    
+	    isEnd = whoWin(board);
 	}
 }
 
